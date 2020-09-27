@@ -3,7 +3,7 @@ package be.pxl.ja.streamingservice.model;
 import java.time.LocalDate;
 
 public class PaymentInfo {
-    private String cardNUmber;
+    private String cardNumber;
     private CreditCardType type;
     private String firstName;
     private String lastName;
@@ -11,11 +11,11 @@ public class PaymentInfo {
     private int securityCode;
 
     public String getCardNUmber() {
-        return cardNUmber;
+        return cardNumber;
     }
 
-    public void setCardNUmber(String cardNUmber) {
-        this.cardNUmber = cardNUmber;
+    public void setCardNumber(String cardNUmber) {
+        this.cardNumber = cardNUmber;
     }
 
     public CreditCardType getType() {
