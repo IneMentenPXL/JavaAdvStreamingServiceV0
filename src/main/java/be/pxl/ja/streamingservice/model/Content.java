@@ -2,15 +2,15 @@ package be.pxl.ja.streamingservice.model;
 
 public abstract class Content {
     private String title;
-    private be.pxl.h1.oef4en5.Rating maturityRating;
+    private Rating maturityRating;
     private String imageUrl;
 
-    public Content(String title, be.pxl.h1.oef4en5.Rating maturityRating) {
+    public Content(String title, Rating maturityRating) {
         this.title = title;
         this.maturityRating = maturityRating;
     }
 
-    public be.pxl.h1.oef4en5.Rating getMaturityRating() {
+    public Rating getMaturityRating() {
         return maturityRating;
     }
 

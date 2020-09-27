@@ -3,7 +3,7 @@ package be.pxl.ja.streamingservice.model;
 public class Documentary extends Movie{
     private String topic;
 
-    public Documentary(String title, be.pxl.h1.oef4en5.Rating maturityRating) {
+    public Documentary(String title, Rating maturityRating) {
         super(title, maturityRating);
         setGenre(Genre.DOCUMENTARY);
     }
