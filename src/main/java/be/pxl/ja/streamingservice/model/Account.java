@@ -29,7 +29,7 @@ public class Account {
     }
 
     public boolean verifyPassword(String password) {
-        return true;
+        return PasswordUtil.isValid(password, this.password);
     }
 
     public String getEmail() {

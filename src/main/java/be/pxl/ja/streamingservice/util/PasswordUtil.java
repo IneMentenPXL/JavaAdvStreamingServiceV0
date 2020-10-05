@@ -1,12 +1,16 @@
 package be.pxl.ja.streamingservice.util;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class PasswordUtil {
 
     private static final String SPECIAL_CHARACTERS = "~!@#$%^&*()_-";
     private static final String NUMBERS = "0123456789";
     private static final String UPPER_CASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String LOWER_CASE = "abcdefghijklmnopqrstuvwxyz";
-
+    private static final String ALGORITHM = "MD5";
 
     public static int calculateStrength(String password) {
         boolean hasUpperCase;
@@ -53,5 +57,20 @@ public class PasswordUtil {
         }
 
         return strength;
+    }
+
+    public static boolean isValid(String providedPassword, String securedPassword) {
+        return securedPassword.equals(encodePassword(providedPassword));
+    }
+
+    private static String encodePassword(String password) {
+        MessageDigest messageDigest = null;
+        try {
+            messageDigest = MessageDigest.getInstance(ALGORITHM);
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalArgumentException(e);
+        }
+        messageDigest.update(password.getBytes(), 0, password.length());
+        return new BigInteger(1, messageDigest.digest()).toString(16);
     }
 }
