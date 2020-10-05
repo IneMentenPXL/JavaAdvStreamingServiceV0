@@ -1,5 +1,7 @@
 package be.pxl.ja.streamingservice.util;
 
+import org.controlsfx.control.action.ActionCheck;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -7,52 +9,45 @@ import java.security.NoSuchAlgorithmException;
 public class PasswordUtil {
 
     private static final String SPECIAL_CHARACTERS = "~!@#$%^&*()_-";
-    private static final String NUMBERS = "0123456789";
-    private static final String UPPER_CASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private static final String LOWER_CASE = "abcdefghijklmnopqrstuvwxyz";
     private static final String ALGORITHM = "MD5";
 
     public static int calculateStrength(String password) {
-        boolean hasUpperCase;
-        boolean hasLowerCase;
-        boolean hasNumbers;
-        boolean hasSpecialCharacters;
-        int strength;
-
-        for (int index = 0; index < password.length(); index++) {
-            String character = Character.toString(password.charAt(index));
-            if (NUMBERS.contains(character)) {
-                hasNumbers = true;
-            } else if (UPPER_CASE.contains(character)) {
-                hasUpperCase = true;
-            } else if (LOWER_CASE.contains(character)) {
-                hasLowerCase = true;
-            } else if (SPECIAL_CHARACTERS.contains(character)) {
-                hasSpecialCharacters = true;
-            }
-        }
+        int strength = 0;
 
         if (password.length() < 6) {
-            strength = 0;
-        } else if (password.length() < 10) {
-            strength = 1;
+            return 0;
+        } else if (password.length() >= 10) {
+            strength += 2;
         } else {
-            strength = 2;
+            strength += 1;
         }
 
-        if (hasNumbers = true) {
+        boolean hasUpperCase = false;
+        boolean hasLowerCase = false;
+        boolean hasNumbers = false;
+        boolean hasSpecialCharacters = false;
+
+        for (int index = 0; index < password.length(); index++) {
+            char character = password.charAt(index);
+            hasNumbers = hasNumbers || Character.isDigit(character);
+            hasLowerCase = hasLowerCase || Character.isLowerCase(character);
+            hasUpperCase = hasUpperCase || Character.isUpperCase(character);
+            hasSpecialCharacters = hasSpecialCharacters || SPECIAL_CHARACTERS.contains(String.valueOf(character));
+        }
+
+        if (hasNumbers) {
             strength += 2;
         }
 
-        if (hasLowerCase = true) {
+        if (hasLowerCase) {
             strength += 2;
         }
 
-        if (hasUpperCase = true) {
+        if (hasUpperCase) {
             strength += 2;
         }
 
-        if (hasSpecialCharacters = true) {
+        if (hasSpecialCharacters) {
             strength += 2;
         }
 
